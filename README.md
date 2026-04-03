@@ -1,113 +1,61 @@
-# 👋 Hi, I’m Ramakrishna Bachu (@ramankrishna)
+# Hi, I'm Ramakrishna Bachu
 
-Founder-engineer building **intelligent systems that learn, adapt, and evolve** — across **financial markets** and **robotic environments**.
+**Software Engineer | 7+ Years of Experience**
 
-I focus on designing **production-grade AI architectures**, **agent-based systems**, and **open-source intelligence models** with clear boundaries between research, community, and monetized products.
+I build event-driven microservices, distributed data pipelines, and AI systems. Currently at **Lowe's** (Charlotte, NC), previously at **Accenture** (Hyderabad).
 
----
-
-## 🚀 What I’m Building
-
-### 🧠 BigBugAI
-**Autonomous financial intelligence & agent systems**
-
-- Proprietary financial reasoning models
-- Market signal generation & strategy engines
-- Memory-driven autonomous agents
-- Subscription-based analytics platform
-- Clear separation of open vs closed intelligence
-
-🔗 GitHub: https://github.com/bigbugAi  
-🌐 Website: https://bigbug.ai  
+MS in Computer Science from the University of New Haven.
 
 ---
 
-### 🔓 BugForge (Open Source)
-**Open-source model foundations for intelligence systems**
+## What I Work On
 
-- Financial intelligence models
-- Agent reasoning frameworks
-- Memory & embedding pipelines
-- Extensible, research-friendly architecture
+**At Lowe's** — Event-driven microservices processing 1M+ Kafka events for promotions and payments, high-throughput data sync across Postgres and Couchbase, observability dashboards (Grafana), and batch systems handling 10M+ digital gift cards.
 
-Built to be **forked, extended, and deployed**.
-
-(Hosted under BigBugAI org)
+**At Accenture** — Scalable data ingestion with Redis/Solr/Kafka (140% query performance improvement across 100M+ requests), AWS S3 file pipelines with Avro, and fault-tolerant microservices with dead-letter queues serving 20M+ users.
 
 ---
 
-### 🤖 Minitron
-**Open-source robotics intelligence focused on learning & evolution**
+## Side Projects
 
-- Continuous learning robotics models
-- Adaptive and evolving policies
-- Simulation → real-world transfer
-- Edge-deployable intelligence
+### BigBugAI — AI Market Intelligence Platform
+Multi-agent AI system separating reasoning, validation, and execution for automated insight generation. Includes a custom PyTorch Transformer pipeline optimized for low-latency inference, real-time data integration, and scoring-based validation with feedback-driven learning loops.
 
-🔗 GitHub: https://github.com/minitron-ai
+### Low Latency Trading System
+Trading system handling price updates at microsecond-level intervals using counting and binary semaphores for concurrency control.
 
----
+### Dog Breed Classifier
+Deep learning image classification using AlexNet, VGG16, and ResNet architectures.
+[GitHub](https://github.com/ramankrishna/Pre-trained-classifier-Project)
 
-## 🧠 Core Interests
+### Order Management Microservice
+REST-based microservices supporting single and batch order processing.
+[GitHub](https://github.com/ramankrishna/orderMicroServiceDemo)
 
-- Agentic AI & autonomous systems
-- Financial reasoning & market intelligence
-- Embodied intelligence & robotics
-- Memory-augmented learning
-- Long-term AI system design
-- Open-source foundations with real utility
+### Audio Compression Tool
+C++ compression/decompression tool implementing core algorithms.
 
----
-
-## 🛠 Tech Stack
-
-**Languages**
-- Java (primary)
-- Python
-- TypeScript
-- Rust (selective systems work)
-
-**AI & Systems**
-- LLM reasoning & tool orchestration
-- Memory systems (STM, LTM, episodic)
-- Signal inference & confidence scoring
-- Simulation-aware learning pipelines
-
-**Infra**
-- Spring Boot
-- MongoDB, Redis
-- Docker & schedulers
-- API-driven architectures
-
-**Blockchain**
-- EVM chains
-- On-chain analytics
-- Token-aware AI systems
+### Music Streaming Online
+Online music streaming application supporting playback from multiple sources.
+[GitHub](https://github.com/ramankrishna/MusicWe)
 
 ---
 
-## 🧭 How I Build
+## Tech Stack
 
-- Systems first, features second  
-- AI as an engineering component, not magic  
-- Clear open vs proprietary boundaries  
-- Built for deployment, not demos  
-- Optimize for long-term leverage  
+**Languages:** Java, Python, C++, Shell
 
----
+**Frameworks:** Spring Boot, Flask, Node.js, React.js, Vue.js
 
-## 🤝 Open To
+**Distributed Systems:** Kafka, Redis, Spark, Airflow
 
-- High-signal technical conversations
-- Serious open-source collaboration
-- Builders thinking long-term about intelligence systems
+**Databases:** MongoDB, Postgres, MySQL, Cassandra, Oracle
+
+**Cloud & Infra:** AWS, Kubernetes, CI/CD, Observability
 
 ---
 
-## 📫 Connect
+## Connect
 
-- GitHub: https://github.com/ramankrishna  
-
----
-
-> I don’t chase hype. I build systems that compound intelligence over time.
+- [LinkedIn](https://www.linkedin.com/in/ramakrishna-bachu10/)
+- [Email](mailto:ramakrishna.bachu1@gmail.com)
