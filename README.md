@@ -18,9 +18,6 @@ MS in Computer Science from the University of New Haven.
 
 ## Side Projects
 
-### BigBugAI — AI Market Intelligence Platform
-Multi-agent AI system separating reasoning, validation, and execution for automated insight generation. Includes a custom PyTorch Transformer pipeline optimized for low-latency inference, real-time data integration, and scoring-based validation with feedback-driven learning loops.
-
 ### Low Latency Trading System
 Trading system handling price updates at microsecond-level intervals using counting and binary semaphores for concurrency control.
 
