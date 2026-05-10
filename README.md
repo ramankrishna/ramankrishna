@@ -8,8 +8,6 @@ Building [Bottensor](https://bottensor.xyz) (open-source small-model research). 
 
 **Bottensor** — open-source small-model research. The NPC family (cards below) trains and serves under one stack: training scripts in [bottensor-models](https://github.com/ramankrishna/bottensor-models), routing in [npc-mom-router](https://github.com/ramankrishna/npc-mom-router) (PyPI), multi-agent orchestration in [bottensor-fleet](https://github.com/ramankrishna/bottensor-fleet) (PyPI). Public site: [bottensor.xyz](https://bottensor.xyz).
 
-**BigBugAI** — local-first financial reasoning research on Apple Silicon. Multi-agent system over a small base model. Live at [bigbug.ai](https://bigbug.ai). Tech lead, builder.
-
 **polyrt** — unified LLM runtime utility. One API across MLX (local), Anthropic, and OpenAI. v0.1.0 shipped 2026-04-27. [Source](https://github.com/ramankrishna/polyRT).
 
 ---
