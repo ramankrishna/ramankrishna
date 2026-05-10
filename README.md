@@ -1,6 +1,6 @@
 # Rama Krishna Bachu
 
-Building [Bottensor](https://bottensor.xyz) (open-source small-model research) and [BigBugAI](https://bigbug.ai) (local-first financial reasoning). Software engineer, 7+ years. MS in Computer Science from the University of New Haven.
+Building [Bottensor](https://bottensor.xyz) (open-source small-model research). Software engineer, 7+ years. MS in Computer Science from the University of New Haven.
 
 ---
 
