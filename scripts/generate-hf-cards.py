@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Generate static SVG cards for HuggingFace models. Run on commit, commit output."""
+"""Generate static SVG cards for HuggingFace models. Run on commit, commit output.
+
+Note: uses ``json.loads(strict=False)`` instead of ``json.load()`` because the
+HuggingFace model API returns JSON with unescaped control characters in
+card-data text fields (raw ``\\n`` / ``\\t`` inside string values). Strict JSON
+parsing rejects this; lenient parsing tolerates it without sacrificing
+structural validation.
+"""
 import json
 import urllib.request
 from pathlib import Path
