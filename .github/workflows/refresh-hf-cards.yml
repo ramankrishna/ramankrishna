@@ -1,0 +1,31 @@
+name: Refresh HuggingFace cards
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Mondays 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Generate cards
+        run: python3 scripts/generate-hf-cards.py
+      - name: Commit if changed
+        run: |
+          git config user.name "hf-cards-bot"
+          git config user.email "actions@github.com"
+          git add assets/hf-cards/
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "chore: refresh HF model cards"
+            git push
+          fi
