@@ -1,4 +1,4 @@
-name: Refresh HuggingFace cards
+name: Refresh profile assets
 
 on:
   schedule:
@@ -16,16 +16,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Generate cards
+      - name: Generate HF cards
         run: python3 scripts/generate-hf-cards.py
+      - name: Generate hero
+        run: python3 scripts/generate-hero.py
       - name: Commit if changed
         run: |
           git config user.name "hf-cards-bot"
           git config user.email "actions@github.com"
-          git add assets/hf-cards/
+          git add assets/
           if git diff --cached --quiet; then
             echo "No changes."
           else
-            git commit -m "chore: refresh HF model cards"
+            git commit -m "chore: refresh HF cards + hero stats"
             git push
           fi

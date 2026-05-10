@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="Rama Krishna Bachu — Training small specialized language models end-to-end">
+  <style>
+    .name      { font: 700 56px 'Outfit', system-ui, sans-serif; fill: #ffffff; }
+    .headline  { font: 400 18px 'DM Mono', ui-monospace, monospace; fill: #00dbb8; letter-spacing: 0.3px; }
+    .stat-val  { font: 600 44px 'Outfit', system-ui, sans-serif; fill: #ffffff; text-anchor: middle; }
+    .stat-lbl  { font: 400 11px 'DM Mono', ui-monospace, monospace; fill: #8a93a8; letter-spacing: 1.5px; text-anchor: middle; text-transform: uppercase; }
+  </style>
+  <rect width="1280" height="320" fill="#161b26"/>
+  <text x="60" y="88" class="name">Rama Krishna Bachu</text>
+  <text x="60" y="125" class="headline">Training small specialized language models end-to-end</text>
+  <circle cx="1180" cy="60" r="5" fill="#f5c842"/>
+  <circle cx="1200" cy="60" r="5" fill="#f5c842"/>
+  <circle cx="1220" cy="60" r="5" fill="#f5c842"/>
+  <text x="205" y="220" class="stat-val">4</text>
+  <text x="495" y="220" class="stat-val">924</text>
+  <text x="785" y="220" class="stat-val">3</text>
+  <text x="1075" y="220" class="stat-val">3</text>
+  <text x="205" y="252" class="stat-lbl">MODELS</text>
+  <text x="495" y="252" class="stat-lbl">HF DL</text>
+  <text x="785" y="252" class="stat-lbl">PYPI</text>
+  <text x="1075" y="252" class="stat-lbl">NPM</text>
+  <line x1="350" x2="350" y1="175" y2="260" stroke="#00dbb8" stroke-opacity="0.25" stroke-width="1"/>
+  <line x1="640" x2="640" y1="175" y2="260" stroke="#00dbb8" stroke-opacity="0.25" stroke-width="1"/>
+  <line x1="930" x2="930" y1="175" y2="260" stroke="#00dbb8" stroke-opacity="0.25" stroke-width="1"/>
+  <line x1="60" x2="1220" y1="290" y2="290" stroke="#00dbb8" stroke-opacity="0.3" stroke-width="1"/>
+</svg>
