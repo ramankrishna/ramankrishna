@@ -8,9 +8,19 @@ parsing rejects this; lenient parsing tolerates it without sacrificing
 structural validation.
 """
 import json
+import ssl as _ssl
 import urllib.request
 from pathlib import Path
 from datetime import datetime
+
+# Use certifi's CA bundle when importable. macOS framework Python ships without
+# system trust integration; the Actions runner setup-python installs certifi
+# automatically. When certifi is absent, fall through to the default context.
+try:
+    import certifi as _certifi
+    _SSL_CTX = _ssl.create_default_context(cafile=_certifi.where())
+except ImportError:
+    _SSL_CTX = None
 
 MODELS = [
     {"id": "ramankrishna10/npc-fast-1.7b", "display": "NPC Fast 1.7B", "base": "SmolLM2-1.7B-Instruct"},
@@ -31,7 +41,7 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def fetch(model_id: str) -> dict:
     url = f"https://huggingface.co/api/models/{model_id}"
-    with urllib.request.urlopen(url, timeout=10) as r:
+    with urllib.request.urlopen(url, timeout=10, context=_SSL_CTX) as r:
         return json.loads(r.read().decode("utf-8"), strict=False)
 
 def fmt_downloads(n: int) -> str:
@@ -51,7 +61,7 @@ def card_svg(m: dict, data: dict) -> str:
     likes = data.get("likes", 0)
     updated = fmt_date(data.get("lastModified", ""))
 
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="400" height="120" viewBox="0 0 400 120" role="img" aria-label="{m['display']} on HuggingFace">
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="480" height="120" viewBox="0 0 480 120" role="img" aria-label="{m['display']} on HuggingFace">
   <style>
     .title {{ font: 600 16px 'Outfit', system-ui, sans-serif; fill: {TEAL}; }}
     .base  {{ font: 400 12px 'DM Mono', ui-monospace, monospace; fill: {MUTED}; }}
@@ -59,20 +69,20 @@ def card_svg(m: dict, data: dict) -> str:
     .stat-value {{ font: 600 18px 'Outfit', system-ui, sans-serif; fill: {TEXT}; }}
     .updated {{ font: 400 10px 'DM Mono', ui-monospace, monospace; fill: {GOLD}; }}
   </style>
-  <rect x="0.5" y="0.5" width="399" height="119" rx="8" fill="{BG}" stroke="{TEAL}" stroke-opacity="0.3"/>
+  <rect x="0.5" y="0.5" width="479" height="119" rx="8" fill="{BG}" stroke="{TEAL}" stroke-opacity="0.3"/>
   <text x="20" y="32" class="title">{m['display']}</text>
   <text x="20" y="50" class="base">{m['base']}</text>
 
   <text x="20"  y="84" class="stat-label">Downloads</text>
   <text x="20"  y="104" class="stat-value">{downloads}</text>
 
-  <text x="160" y="84" class="stat-label">Likes</text>
-  <text x="160" y="104" class="stat-value">{likes}</text>
+  <text x="180" y="84" class="stat-label">Likes</text>
+  <text x="180" y="104" class="stat-value">{likes}</text>
 
-  <text x="240" y="84" class="stat-label">Updated</text>
-  <text x="240" y="104" class="updated">{updated}</text>
+  <text x="320" y="84" class="stat-label">Updated</text>
+  <text x="320" y="104" class="updated">{updated}</text>
 
-  <circle cx="380" cy="20" r="4" fill="{GOLD}"/>
+  <circle cx="460" cy="20" r="4" fill="{GOLD}"/>
 </svg>'''
 
 def main():

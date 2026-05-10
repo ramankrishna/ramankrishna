@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="120" viewBox="0 0 400 120" role="img" aria-label="NPC Fast 1.7B on HuggingFace">
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="120" viewBox="0 0 480 120" role="img" aria-label="NPC Fast 1.7B on HuggingFace">
   <style>
     .title { font: 600 16px 'Outfit', system-ui, sans-serif; fill: #00dbb8; }
     .base  { font: 400 12px 'DM Mono', ui-monospace, monospace; fill: #8a93a8; }
@@ -6,18 +6,18 @@
     .stat-value { font: 600 18px 'Outfit', system-ui, sans-serif; fill: #ffffff; }
     .updated { font: 400 10px 'DM Mono', ui-monospace, monospace; fill: #f5c842; }
   </style>
-  <rect x="0.5" y="0.5" width="399" height="119" rx="8" fill="#161b26" stroke="#00dbb8" stroke-opacity="0.3"/>
+  <rect x="0.5" y="0.5" width="479" height="119" rx="8" fill="#161b26" stroke="#00dbb8" stroke-opacity="0.3"/>
   <text x="20" y="32" class="title">NPC Fast 1.7B</text>
   <text x="20" y="50" class="base">SmolLM2-1.7B-Instruct</text>
 
   <text x="20"  y="84" class="stat-label">Downloads</text>
   <text x="20"  y="104" class="stat-value">515</text>
 
-  <text x="160" y="84" class="stat-label">Likes</text>
-  <text x="160" y="104" class="stat-value">0</text>
+  <text x="180" y="84" class="stat-label">Likes</text>
+  <text x="180" y="104" class="stat-value">0</text>
 
-  <text x="240" y="84" class="stat-label">Updated</text>
-  <text x="240" y="104" class="updated">Apr 2026</text>
+  <text x="320" y="84" class="stat-label">Updated</text>
+  <text x="320" y="104" class="updated">Apr 2026</text>
 
-  <circle cx="380" cy="20" r="4" fill="#f5c842"/>
+  <circle cx="460" cy="20" r="4" fill="#f5c842"/>
 </svg>
