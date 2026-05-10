@@ -1,58 +1,106 @@
-# Hi, I'm Ramakrishna Bachu
+# Rama Krishna Bachu
 
-**Software Engineer | 7+ Years of Experience**
-
-I build event-driven microservices, distributed data pipelines, and AI systems. Currently at **Lowe's** (Charlotte, NC), previously at **Accenture** (Hyderabad).
-
-MS in Computer Science from the University of New Haven.
+Building [Bottensor](https://bottensor.xyz) (open-source small-model research) and [BigBugAI](https://bigbug.ai) (local-first financial reasoning). Software engineer, 7+ years. MS in Computer Science from the University of New Haven.
 
 ---
 
-## What I Work On
+## Currently building
 
-**At Lowe's** — Event-driven microservices processing 1M+ Kafka events for promotions and payments, high-throughput data sync across Postgres and Couchbase, observability dashboards (Grafana), and batch systems handling 10M+ digital gift cards.
+**Bottensor** — open-source small-model research. The NPC family (cards below) trains and serves under one stack: training scripts in [bottensor-models](https://github.com/ramankrishna/bottensor-models), routing in [npc-mom-router](https://github.com/ramankrishna/npc-mom-router) (PyPI), multi-agent orchestration in [bottensor-fleet](https://github.com/ramankrishna/bottensor-fleet) (PyPI). Public site: [bottensor.xyz](https://bottensor.xyz).
 
-**At Accenture** — Scalable data ingestion with Redis/Solr/Kafka (140% query performance improvement across 100M+ requests), AWS S3 file pipelines with Avro, and fault-tolerant microservices with dead-letter queues serving 20M+ users.
+**BigBugAI** — local-first financial reasoning research on Apple Silicon. Multi-agent system over a small base model. Live at [bigbug.ai](https://bigbug.ai). Tech lead, builder.
 
----
-
-## Side Projects
-
-### Low Latency Trading System
-Trading system handling price updates at microsecond-level intervals using counting and binary semaphores for concurrency control.
-
-### Dog Breed Classifier
-Deep learning image classification using AlexNet, VGG16, and ResNet architectures.
-[GitHub](https://github.com/ramankrishna/Pre-trained-classifier-Project)
-
-### Order Management Microservice
-REST-based microservices supporting single and batch order processing.
-[GitHub](https://github.com/ramankrishna/orderMicroServiceDemo)
-
-### Audio Compression Tool
-C++ compression/decompression tool implementing core algorithms.
-
-### Music Streaming Online
-Online music streaming application supporting playback from multiple sources.
-[GitHub](https://github.com/ramankrishna/MusicWe)
+**polyrt** — unified LLM runtime utility. One API across MLX (local), Anthropic, and OpenAI. v0.1.0 shipped 2026-04-27. [Source](https://github.com/ramankrishna/polyRT).
 
 ---
 
-## Tech Stack
+## Career
 
-**Languages:** Java, Python, C++, Shell
+**Lowe's, Charlotte NC** — Event-driven microservices processing 1M+ Kafka events for promotions and payments. High-throughput data sync across Postgres and Couchbase. Observability dashboards in Grafana. Batch systems handling 10M+ digital gift cards.
 
-**Frameworks:** Spring Boot, Flask, Node.js, React.js, Vue.js
+**Accenture, Hyderabad** — Scalable data ingestion with Redis / Solr / Kafka — 140% query performance improvement across 100M+ requests. AWS S3 file pipelines with Avro. Fault-tolerant microservices with dead-letter queues serving 20M+ users.
 
-**Distributed Systems:** Kafka, Redis, Spark, Airflow
+---
 
-**Databases:** MongoDB, Postgres, MySQL, Cassandra, Oracle
+## Published research
 
-**Cloud & Infra:** AWS, Kubernetes, CI/CD, Observability
+**[NPC Agentic 7B v3 — benchmark harness](https://doi.org/10.5281/zenodo.19954103)** (2026). Compares Qwen2.5-7B-Instruct against NPC Agentic 7B v3 on BFCL v4, IFEval, and AgentBench OS+DB under identical vLLM 0.6.3 GPTQ W4A16 serving. Source: [bench-npc-agentic-v3](https://github.com/ramankrishna/bench-npc-agentic-v3).
+
+---
+
+## Models on HuggingFace
+
+Live download stats from the HuggingFace API, refreshed weekly.
+
+<p align="center">
+  <a href="https://huggingface.co/ramankrishna10/npc-fast-1.7b">
+    <img src="./assets/hf-cards/npc-fast-1.7b.svg" alt="NPC Fast 1.7B" />
+  </a>
+  <a href="https://huggingface.co/ramankrishna10/npc-agentic-7b-v3">
+    <img src="./assets/hf-cards/npc-agentic-7b-v3.svg" alt="NPC Agentic 7B v3" />
+  </a>
+</p>
+<p align="center">
+  <a href="https://huggingface.co/ramankrishna10/npc-fin-prm-7b">
+    <img src="./assets/hf-cards/npc-fin-prm-7b.svg" alt="Fin-PRM 7B" />
+  </a>
+  <a href="https://huggingface.co/ramankrishna10/npc-fin-32b-sft">
+    <img src="./assets/hf-cards/npc-fin-32b-sft.svg" alt="NPC Fin 32B" />
+  </a>
+</p>
+
+<p align="center"><sub>Profile on <a href="https://huggingface.co/ramankrishna10">huggingface.co/ramankrishna10</a></sub></p>
+
+---
+
+## Open source
+
+**Bottensor**
+- [bottensor-models](https://github.com/ramankrishna/bottensor-models) — Training scripts and configs for the NPC model family
+- [npc-mom-router](https://github.com/ramankrishna/npc-mom-router) — Plug-and-play Mixture-of-Models router with real cost tracking (PyPI)
+- [bottensor-fleet](https://github.com/ramankrishna/bottensor-fleet) — Graph-native multi-agent fleet for Python (PyPI)
+- [bench-npc-agentic-v3](https://github.com/ramankrishna/bench-npc-agentic-v3) — NPC Agentic v3 benchmark harness (Zenodo paper)
+
+**@bottensor scope on npm**
+- [cogito](https://github.com/ramankrishna/cogito) — Multi-strategy reasoning (ReAct, Chain-of-Thought, Tree-of-Thought) over HuggingFace and OpenAI-compatible backends
+- [engram](https://github.com/ramankrishna/engram) — Graph-based agent memory, short-term + long-term, with local or Voyage AI backends
+- [forge](https://github.com/ramankrishna/forge) — Open agentic framework with skills-as-markdown and pluggable LLM providers
+
+**Standalone**
+- [polyRT](https://github.com/ramankrishna/polyRT) — Unified LLM runtime (MLX + Anthropic + OpenAI)
+
+---
+
+## Past work
+
+Java and systems portfolio from earlier roles:
+
+- [orderMicroServiceDemo](https://github.com/ramankrishna/orderMicroServiceDemo) — REST microservices for order processing (Cart / Order / Invoice / ERP)
+- [Pre-trained-classifier-Project](https://github.com/ramankrishna/Pre-trained-classifier-Project) — Image classification with AlexNet, VGG16, ResNet
+- [RedisImplementation](https://github.com/ramankrishna/RedisImplementation) — Redis from scratch in Java
+- [NodesApi](https://github.com/ramankrishna/NodesApi) — Distributed nodes REST API
+- [JavaDSAlgos](https://github.com/ramankrishna/JavaDSAlgos) — Data structures and algorithms in Java
+
+---
+
+## Tech stack
+
+**Languages:** Python, Java, C++, TypeScript, Shell
+
+**ML / inference:** PyTorch, vLLM, MLX, HuggingFace Transformers, GPTQ / AWQ quantization
+
+**Backend:** Spring Boot, Flask, Node.js, FastAPI
+
+**Distributed:** Kafka, Redis, Spark, Airflow
+
+**Databases:** MongoDB, Postgres, MySQL, Cassandra
+
+**Cloud & infra:** AWS, GCP, Kubernetes, Heroku, Vercel, RunPod
 
 ---
 
 ## Connect
 
-- [LinkedIn](https://www.linkedin.com/in/ramakrishna-bachu10/)
-- [Email](mailto:ramakrishna.bachu1@gmail.com)
+- LinkedIn: [ramakrishna-bachu10](https://www.linkedin.com/in/ramakrishna-bachu10/)
+- Email: [ramakrishna.bachu1@gmail.com](mailto:ramakrishna.bachu1@gmail.com)
+- HuggingFace: [@ramankrishna10](https://huggingface.co/ramankrishna10)
