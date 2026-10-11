@@ -14,6 +14,15 @@ Software engineer at Lowe's on the Wallet platform: payments, gift and credit ca
 | [NPC Agentic 7B v3](https://huggingface.co/ramankrishna10/npc-agentic-7b-v3) | Tool-use model on Qwen2.5-7B with its own [benchmark harness](https://github.com/ramankrishna/bench-npc-agentic-v3) | BFCL v4, IFEval and AgentBench under one serving setup ([paper](https://doi.org/10.5281/zenodo.19954103)) |
 | [NPC Fin 32B](https://huggingface.co/ramankrishna10/npc-fin-32b-sft) | Finance model on Qwen2.5-32B, trained on 12 H100s | CryptoQA 93.6% ([paper](https://doi.org/10.5281/zenodo.19802598)) |
 
+## How they fit together
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/flow-dark.svg">
+  <img src="./assets/flow-light.svg" width="100%" alt="Animated diagram. A request reaches NPC Fast 1.7B, which picks a route. Easy requests it answers itself. Hard requests are escalated to NPC Fin 32B, which works through them in steps, and Fin-PRM 7B scores each step before the answer.">
+</picture>
+
+NPC Fast reads each request and answers the easy ones itself. Hard ones are escalated to NPC Fin, and Fin-PRM scores each step of the reasoning.
+
 ## Tools
 
 | Project | What it does |

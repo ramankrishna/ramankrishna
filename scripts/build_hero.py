@@ -80,8 +80,17 @@ class Face:
         self.hb = hb.Font(hb.Face(path.read_bytes()))
         self.used: dict[int, str] = {}
 
-    def set(self, text: str, size: float, x: float, y: float, fill: str, tracking: float = 0.0) -> str:
-        """Set text at x, baseline y. Tracking is in ems."""
+    def width(self, text: str, size: float) -> float:
+        """Advance width of text at the given size."""
+        buf = hb.Buffer()
+        buf.add_str(text)
+        buf.guess_segment_properties()
+        hb.shape(self.hb, buf, {"kern": True, "liga": True})
+        return sum(pos.x_advance for pos in buf.glyph_positions) * size / self.upem
+
+    def set(self, text: str, size: float, x: float, y: float, fill: str, tracking: float = 0.0,
+            attrs: str = "") -> str:
+        """Set text at x, baseline y. Tracking is in ems. attrs is added to the group."""
         buf = hb.Buffer()
         buf.add_str(text)
         buf.guess_segment_properties()
@@ -98,7 +107,7 @@ class Face:
                 uses.append(f'<use href="#{self.key}{gid}" x="{cursor + pos.x_offset}"/>')
             cursor += pos.x_advance + round(tracking * self.upem)
         return (
-            f'<g fill="{fill}" transform="translate({x:g} {y:g}) scale({scale:.5f} -{scale:.5f})">'
+            f'<g {attrs} fill="{fill}" transform="translate({x:g} {y:g}) scale({scale:.5f} -{scale:.5f})">'
             + "".join(uses) + "</g>"
         )
 
