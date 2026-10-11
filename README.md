@@ -17,11 +17,11 @@ Software engineer at Lowe's on the Wallet platform: payments, gift and credit ca
 ## How they fit together
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/flow-dark.svg">
-  <img src="./assets/flow-light.svg" width="100%" alt="Animated diagram. A request reaches NPC Fast 1.7B, which picks a route. Easy requests it answers itself. Hard requests are escalated to NPC Fin 32B, which works through them in steps, and Fin-PRM 7B scores each step before the answer.">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/workbench-dark.gif">
+  <img src="./assets/workbench-light.gif" width="100%" alt="Animation. A small figure builds three models on a workbench as stacks of cubes, one cube per billion parameters: NPC Fast 1.7B, NPC Fin 32B and Fin-PRM 7B. Then two requests roll through. The router answers the easy one itself. The hard one goes to NPC Fin, which works it in steps, and Fin-PRM scores each step.">
 </picture>
 
-NPC Fast reads each request and answers the easy ones itself. Hard ones are escalated to NPC Fin, and Fin-PRM scores each step of the reasoning.
+One cube is a billion parameters. NPC Fast reads each request and answers the easy ones itself. Hard ones are escalated to NPC Fin, and Fin-PRM scores each step of the reasoning.
 
 ## Tools
 

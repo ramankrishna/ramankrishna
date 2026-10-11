@@ -1,0 +1,18 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Workbench</title>
+<style>
+  @font-face { font-family: "Bricolage"; font-weight: 500; src: url("../fonts/BricolageGrotesque-Text-Medium.ttf"); }
+  @font-face { font-family: "Bricolage"; font-weight: 700; src: url("../fonts/BricolageGrotesque-Display-Bold.ttf"); }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  canvas { display: block; }
+  #list { position: absolute; left: 46px; top: 40px; font: 500 19px/1 "Bricolage", sans-serif; }
+  #list div { display: flex; align-items: center; gap: 12px; height: 33px; transition: none; }
+  #list i { width: 10px; height: 10px; border-radius: 2px; box-sizing: border-box; border: 1.5px solid; flex: none; }
+  #list b { font-weight: 500; font-variant-numeric: tabular-nums; opacity: .7; }
+</style>
+<div id="list"></div>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+<script type="module" src="scene.js"></script>
