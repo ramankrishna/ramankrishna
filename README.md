@@ -5,6 +5,11 @@
 
 Software engineer at Lowe's on the Wallet platform: payments, gift and credit cards, and checkout, on Java services that consume over a million Kafka events a day. I also built the team's AI layer, an MCP-based agent platform. On my own time I train small language models in PyTorch and publish the weights, the evals and the null results. That side work is my own and not my employer's.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-dayjob-dark.gif">
+  <img src="./assets/journey-dayjob-light.gif" width="100%" alt="Animation. A small figure sets up two Java services on a workbench and a stream of events flows through them, over a million a day.">
+</picture>
+
 ## Models
 
 | Model | What it is | Result |
@@ -14,16 +19,19 @@ Software engineer at Lowe's on the Wallet platform: payments, gift and credit ca
 | [NPC Agentic 7B v3](https://huggingface.co/ramankrishna10/npc-agentic-7b-v3) | Tool-use model on Qwen2.5-7B with its own [benchmark harness](https://github.com/ramankrishna/bench-npc-agentic-v3) | BFCL v4, IFEval and AgentBench under one serving setup ([paper](https://doi.org/10.5281/zenodo.19954103)) |
 | [NPC Fin 32B](https://huggingface.co/ramankrishna10/npc-fin-32b-sft) | Finance model on Qwen2.5-32B, trained on 12 H100s | CryptoQA 93.6% ([paper](https://doi.org/10.5281/zenodo.19802598)) |
 
-## How they fit together
-
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/workbench-dark.gif">
-  <img src="./assets/workbench-light.gif" width="100%" alt="Animation. A small figure builds three models on a workbench as stacks of cubes, one cube per billion parameters: NPC Fast 1.7B, NPC Fin 32B and Fin-PRM 7B. Then two requests roll through. The router answers the easy one itself. The hard one goes to NPC Fin, which works it in steps, and Fin-PRM scores each step.">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-models-dark.gif">
+  <img src="./assets/journey-models-light.gif" width="100%" alt="Animation. The figure builds three models as stacks of cubes, one cube per billion parameters: NPC Fast 1.7B, NPC Fin 32B and Fin-PRM 7B. An easy request is answered by the router. A hard one goes to NPC Fin and Fin-PRM scores each step. The results appear: 98.3% routing accuracy, 93.6% CryptoQA, Spearman 0.92.">
 </picture>
 
 One cube is a billion parameters. NPC Fast reads each request and answers the easy ones itself. Hard ones are escalated to NPC Fin, and Fin-PRM scores each step of the reasoning.
 
 ## Tools
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-tools-dark.gif">
+  <img src="./assets/journey-tools-light.gif" width="100%" alt="Animation. The figure walks four more workbenches and builds each package as a working object: npc-mom-router routing requests between two models, polyrt sending one call to Claude, GPT or a local MLX model, engram recalling through a graph of memories, reasoning-bank filing and retrieving lessons with a sign reading no lift, forge loading markdown skills, cogito looping think, act, observe, bottensor-fleet passing work between agents, and attest-ledger marking claims backed, stale or unbacked.">
+</picture>
 
 | Project | What it does |
 |---|---|

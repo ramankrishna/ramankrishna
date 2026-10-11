@@ -1,13 +1,19 @@
-"""Render the workbench film from scene.js.
+"""Render the journey film from journey.js.
 
 The scene is a pure function of time, so this steps through it frame by
-frame in headless Chromium and saves each frame. ffmpeg turns the frames
-into the GIFs the README plays and an MP4 for sharing.
+frame in headless Chromium and saves each frame. ffmpeg then makes the MP4
+and cuts the chapter GIFs the README plays.
 
     cd scripts/workbench && npm install three@0.169.0
     pip install playwright pillow && playwright install chromium
-    python3 render.py frames light out/light 30 1.5
-    ffmpeg -framerate 30 -i out/light/f%04d.png -vf "fps=12,scale=800:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=none:diff_mode=rectangle" -loop 0 ../../assets/workbench-light.gif
+    python3 render.py frames light out/light 24 1.5      # all 1584 frames
+    FIRST=161 LAST=516 python3 render.py frames light out/light 24 1.5   # or just a range
+
+    ffmpeg -framerate 24 -i out/light/f%04d.png -c:v libx264 -pix_fmt yuv420p -crf 18 journey-light.mp4
+
+Chapter GIFs (start frame, frame count, width): day job 0/130/800, models 161/355/800, tools 547/903/760.
+
+    ffmpeg -framerate 24 -start_number 161 -i out/light/f%04d.png -frames:v 355 -vf "fps=12,scale=800:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=none:diff_mode=rectangle" -loop 0 ../../assets/journey-models-light.gif
 
 usage: render.py stills <theme> <out.png> t1 t2 ...
        render.py frames <theme> <dir> <fps> [scale]
@@ -49,7 +55,8 @@ async def main():
             else:
                 fps = int(sys.argv[4]); os.makedirs(out, exist_ok=True)
                 dur = await pg.evaluate("window.DURATION"); n = int(round(dur * fps)); t0 = time.time()
-                for i in range(n):
+                first = int(os.environ.get('FIRST', 0)); last = int(os.environ.get('LAST', n))
+                for i in range(first, min(n, last)):
                     await pg.evaluate("t => window.renderAt(t)", i / fps)
                     await pg.screenshot(path=f"{out}/f{i:04d}.png")
                     if i % 40 == 0: print(f"{i}/{n} {time.time()-t0:.0f}s", flush=True)
