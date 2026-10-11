@@ -27,7 +27,11 @@ OUT = ROOT / "assets"
 # Content
 
 NAME = "Rama Krishna Bachu"
-STATEMENT = ["I train small language models", "and build the agent tooling around them."]
+STATEMENT = [
+    "Java and Python distributed systems.",
+    "AI agents and MCP servers.",
+    "Small language models, for fun.",
+]
 LEGEND = "One square is 100 million parameters"
 
 # (label, parameters in billions), drawn left to right.
@@ -40,7 +44,7 @@ MODELS = [
 
 ALT = (
     f"{NAME}. {' '.join(STATEMENT)} "
-    "Four models drawn to scale by parameter count: "
+    "The models, drawn to scale by parameter count: "
     + ", ".join(f"{label} {size:g}B" for label, size in MODELS)
     + "."
 )
@@ -128,7 +132,7 @@ def build(theme: str) -> str:
     # Left column: name, statement, legend.
     type_.append(display.set(NAME, 60, 0, 72, c["fg"], tracking=-0.006))
     for i, line in enumerate(STATEMENT):
-        type_.append(text.set(line, 28, 1, 124 + i * 37, c["fg"]))
+        type_.append(text.set(line, 27, 1, 121 + i * 35, c["fg"]))
     type_.append(text.set(LEGEND, 15, 16, 275, c["muted"]))
     legend_swatch = dashes(1, 270, 1)
 

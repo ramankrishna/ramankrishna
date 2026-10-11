@@ -1,11 +1,11 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-dark.svg">
-  <img src="./assets/hero-light.svg" width="100%" alt="Rama Krishna Bachu. I train small language models and build the agent tooling around them. Four models drawn to scale by parameter count: Fast 1.7B, Fin-PRM 7B, Agentic v3 7B, Fin 32B.">
+  <img src="./assets/hero-light.svg" width="100%" alt="Rama Krishna Bachu. Java and Python distributed systems. AI agents and MCP servers. Small language models, for fun. The models, drawn to scale by parameter count: Fast 1.7B, Fin-PRM 7B, Agentic v3 7B, Fin 32B.">
 </picture>
 
-Software engineer at Lowe's. On my own time I fine-tune small open models, benchmark them under identical serving conditions, and publish what the evals say as [Bottensor](https://bottensor.xyz). That work is my own and not my employer's.
+Software engineer at Lowe's on the Wallet platform: payments, gift and credit cards, and checkout, on Java services that consume over a million Kafka events a day. I also built the team's AI layer, an MCP-based agent platform. On my own time I train small language models in PyTorch and publish the weights, the evals and the null results. That side work is my own and not my employer's.
 
-## Research
+## Models
 
 | Model | What it is | Result |
 |---|---|---|
