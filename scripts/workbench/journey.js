@@ -15,8 +15,8 @@ const C = THEME === 'dark'
       track: '#c3ccd5', accent: '#0b8a76', ask: '#e8a020', bad: '#cf222e', skin: '#e9d3bb', cap: '#1f2328',
       eye: '#1f2328', paper: '#ffffff', shadow: 0.16, hemiSky: '#ffffff', hemiGround: '#c9d2db', hemi: 1.15, sun: 2.1 };
 
-export const DURATION = 66;
-const END = 65.2;                        // everything pops away from here so the loop restarts clean
+export const DURATION = 85;
+const END = 84.2;                        // everything pops away from here so the loop restarts clean
 const U = 0.55, GAP = 0.03, STEP = U + GAP;
 const PX = 17, RZ = 8.5;               // spacing between benches
 
@@ -161,30 +161,115 @@ function roll(m, pts, t, G, y = 0.17) {
   return p;
 }
 
-// ================================================================ 1. Day job
-const A = Bench(-1, -1, 0);
-path(A, [[-5.9, 0.5], [5.9, 0.5]], 1.7);
-const svc = x => [0, 1, 2, 3].map(i => cube(A, [x, (i >> 1) * STEP + U / 2, 0.5 + (i % 2 ? 1 : -1) * STEP / 2], 0));
-const svc1 = svc(-1.6), svc2 = svc(2.2);
+// ================================================================ 1. Lowe's: the Wallet platform
+const L1 = Bench(-1.5, -1, 0);
+// Event-driven services: a stream of Kafka events through two Java services.
+path(L1, [[-5.9, -2.2], [5.9, -2.2]], 1.7);
+const svc = x => [0, 1, 2, 3].map(i => cube(L1, [x, (i >> 1) * STEP + U / 2, -2.2 + (i % 2 ? 1 : -1) * STEP / 2], 0));
+const svc1 = svc(-2.4), svc2 = svc(1.4);
 svc1.forEach((it, i) => it.at = 1.65 + i * 0.06); svc2.forEach((it, i) => it.at = 2.0 + i * 0.06);
-const events = Array.from({ length: 14 }, () => { const m = mesh(new RoundedBoxGeometry(0.2, 0.2, 0.2, 2, 0.03), mat(C.ask)); A.g.add(m); return m; });
-label(A, 'Java services', [0.3, 1.75, 0.5], 2.4);
-metric(A, '1M+', 'events a day', [4.6, 1.5, 0.5], 3.6);
-A.update = (u, G) => {
-  settle(A, u, G);
+const events = Array.from({ length: 14 }, () => { const m = mesh(new RoundedBoxGeometry(0.2, 0.2, 0.2, 2, 0.03), mat(C.ask)); L1.g.add(m); return m; });
+label(L1, 'Java services', [-0.5, 1.75, -2.2], 2.4);
+metric(L1, '1M+', 'Kafka events a day', [4.4, 1.5, -2.2], 3.4);
+// Pay by Bank: a new way to pay at checkout.
+path(L1, [[-5.9, 0.9], [-4.1, 0.9]], 5.4); path(L1, [[-3.1, 0.9], [-1.95, 0.9]], 5.45);
+const payGate = box(L1, [0.95, 0.8, 0.95], [-3.6, 0.4, 0.9], 5.3, REST, 0.08);
+box(L1, [1.2, 0.1, 1.2], [-1.35, 0.05, 0.9], 5.5).drop = 0;
+label(L1, 'Pay by Bank', [-3.6, 1.5, 0.9], 5.5);
+label(L1, 'checkout', [-1.35, 0.3, 1.95], 5.7, { color: C.muted, px: 54 });
+metric(L1, '~45,000', 'customers use it', [-4.5, 0.55, 2.75], 6.5);
+const pays = [0, 1, 2].map(() => ball(L1));
+const PAY = [[0, -5.9, 0.9, 1], [0.5, -4.1, 0.9, 1], [0.51, -3.6, 0.9, 0], [0.7, -3.6, 0.9, 0], [0.71, -3.1, 0.9, 1], [1.05, -1.95, 0.9, 1], [1.2, -1.35, 0.9, 1], [1.45, -1.35, 0.9, 1]];
+// Card migration: cards cross from the old platform to the new one.
+box(L1, [1.7, 0.14, 1.5], [1.7, 0.07, 1.3], 8.7, C.track).drop = 0;
+box(L1, [1.7, 0.14, 1.5], [4.7, 0.07, 1.3], 8.8, REST).drop = 0;
+label(L1, 'old platform', [1.7, 0.3, 0.15], 8.9, { color: C.muted, px: 54 });
+label(L1, 'new platform', [4.7, 0.3, 0.15], 9.0, { color: C.muted, px: 54 });
+metric(L1, '~450K', 'cards migrated at 99.98% accuracy', [3.3, 0.55, 3.1], 10.0);
+const cardGeo = new RoundedBoxGeometry(0.34, 0.03, 0.5, 2, 0.012);
+const moved = Array.from({ length: 8 }, () => { const m = mesh(cardGeo, mat(C.paper)); m.visible = false; L1.g.add(m); return m; });
+L1.update = (u, G) => {
+  settle(L1, u, G);
   events.forEach((m, i) => {
     const r = 2.5 + i * 0.33, d = u < r ? -1 : ((u - r) * 2.6) % 11.8, x = -5.9 + d;
-    const inside = Math.abs(x + 1.6) < 0.36 || Math.abs(x - 2.2) < 0.36;
+    const inside = Math.abs(x + 2.4) < 0.36 || Math.abs(x - 1.4) < 0.36;
     m.visible = d >= 0 && !inside && G > 0.05;
-    m.position.set(x, 0.13, 0.5); m.scale.setScalar(G);
-    m.material.color.copy(mix(C.ask, C.accent, x < -1.6 ? 0 : x < 2.2 ? 0.5 : 1));
+    m.position.set(x, 0.13, -2.2); m.scale.setScalar(G);
+    m.material.color.copy(mix(C.ask, C.accent, x < -2.4 ? 0 : x < 1.4 ? 0.5 : 1));
   });
   if (u > 2.5) [svc1, svc2].forEach((s, k) => s.forEach(it => pulse(it, 0.35 + 0.35 * Math.sin(u * 7.6 + k * 2), C.accent, 0.03)));
+  let through = 0;
+  pays.forEach((m, i) => {
+    const w = loop(u, 5.9 + i * 0.5, 1.5); roll(m, PAY, w, G);
+    m.material.color.copy(mix(C.ask, C.accent, seg(w, 0.6, 0.75)));
+    if (w >= 0) through = Math.max(through, bump(w, 0.5, 0.25));
+  });
+  pulse(payGate, through, C.accent, 0.1);
+  moved.forEach((m, i) => {
+    const p = u < 9.3 ? -1 : ((u - 9.3) * 0.75 + i / 8) % 1;
+    m.visible = p >= 0 && G > 0.05 && (u - 9.3) * 0.75 >= (1 - i / 8) % 1;   // each card waits for its first full crossing
+    m.scale.setScalar(G);
+    m.position.set(lerp(1.7, 4.7, inOut(Math.max(p, 0))), 0.2 + Math.sin(Math.PI * Math.max(p, 0)) * 1.0, 1.3 + ((i % 3) - 1) * 0.32);
+    m.rotation.z = -Math.sin(Math.PI * Math.max(p, 0)) * 0.5;
+    m.material.color.copy(mix(C.paper, C.accent, seg(p, 0.7, 0.95)));
+  });
+};
+
+// ================================================================ 2. Lowe's: migrations and the AI layer
+const TL2 = 12.6;
+const L2 = Bench(-0.5, -1, TL2);
+// Couchbase to Postgres: a dozen services hop across.
+box(L2, [2.0, 0.1, 1.7], [-4.7, 0.05, -0.7], 0.5, C.track).drop = 0;
+box(L2, [2.0, 0.1, 1.7], [-1.9, 0.05, -0.7], 0.6, REST).drop = 0;
+label(L2, 'Couchbase', [-4.7, 0.3, 0.65], 0.8, { color: C.muted, px: 54 });
+label(L2, 'Postgres', [-1.9, 0.3, 0.65], 0.9, { color: C.muted, px: 54 });
+const miniGeo = new RoundedBoxGeometry(0.32, 0.32, 0.32, 2, 0.04);
+const services = Array.from({ length: 12 }, (_, i) => {
+  const it = item(L2, mesh(miniGeo, mat(C.cube)), [-5.33 + (i % 4) * 0.42, 0.26, -1.12 + Math.floor(i / 4) * 0.42], 0.7 + i * 0.04);
+  it.hop = 1.7 + i * 0.13; return it;
+});
+metric(L2, '12+', 'services moved to Postgres', [-1.9, 1.95, -0.7], 3.5);
+// The AI layer: an agent platform that turns a spec into a pull request.
+const agent = bot(L2, [2.3, -0.9], 5.5, 0.8);
+const specs = [0, 1, 2].map(i => item(L2, mesh(new RoundedBoxGeometry(0.5, 0.035, 0.66, 2, 0.015), mat(C.paper)), [0.75, 0.03 + i * 0.045, -0.9], 5.6 + i * 0.06));
+box(L2, [2.3, 0.08, 0.9], [4.75, 0.04, -0.9], 5.7).drop = 0;
+label(L2, 'MCP agent platform', [2.3, 1.5, -0.9], 5.7);
+label(L2, 'spec', [0.75, 0.6, -0.9], 5.9, { color: C.muted, px: 54 });
+label(L2, 'pull requests', [4.75, 0.3, 0.05], 6.0, { color: C.muted, px: 54 });
+metric(L2, '100+', 'pull requests raised', [4.75, 1.55, -0.9], 7.6);
+const specFly = mesh(new RoundedBoxGeometry(0.5, 0.035, 0.66, 2, 0.015), mat(C.paper)); specFly.visible = false; L2.g.add(specFly);
+const PRSLOT = k => [3.95 + k * 0.32, 0.13, -0.9];
+const prs = [0, 1, 2, 3, 4, 5].map(() => chip(L2, C.accent)), prFly = chip(L2, C.accent);
+// Agent skills that fix security findings.
+box(L2, [2.4, 0.08, 1.3], [3.2, 0.04, 1.9], 8.5).drop = 0;
+const vulns = Array.from({ length: 8 }, (_, i) => item(L2, mesh(chipGeo, mat(C.bad)), [2.3 + (i % 4) * 0.6, 0.13, 1.6 + Math.floor(i / 4) * 0.6], 8.6 + i * 0.04));
+label(L2, 'security findings', [3.2, 0.3, 3.05], 8.8, { color: C.muted, px: 54 });
+metric(L2, '100+', 'vulnerabilities fixed', [5.3, 0.75, 2.5], 10.4);
+L2.update = (u, G) => {
+  settle(L2, u, G);
+  services.forEach(it => {
+    const p = inOut(seg(u, it.hop, it.hop + 0.45));
+    it.m.position.x += 2.8 * p; it.m.position.y += Math.sin(Math.PI * p) * 0.9;
+    it.m.material.color.copy(mix(C.cube, C.accent, 0.75 * seg(u, it.hop + 0.3, it.hop + 0.55)));
+  });
+  const n = u < 6.2 ? -1 : Math.floor((u - 6.2) / 1.6), w = loop(u, 6.2, 1.6), k = n < 0 ? 0 : n % 6;
+  const arc = (m, from, to, p, h) => { m.visible = p > 0 && p < 1 && G > 0.05; m.position.set(lerp(from[0], to[0], p), lerp(from[1], to[1], p) + Math.sin(Math.PI * p) * h, lerp(from[2], to[2], p)); };
+  arc(specFly, [0.75, 0.2, -0.9], [2.3, 0.85, -0.9], w < 0 ? 0 : inOut(seg(w, 0, 0.45)), 0.6);
+  pulse(agent, w < 0 ? 0 : bump(w, 0.4, 0.4), C.accent, 0.12);
+  arc(prFly, [2.3, 0.85, -0.9], PRSLOT(k), w < 0 ? 0 : inOut(seg(w, 0.75, 1.2)), 0.7);
+  prs.forEach((m, i) => { m.visible = n >= 0 && (i < k || (i === k && w >= 1.2)) && G > 0.05; m.position.set(...PRSLOT(i)); m.scale.setScalar(G); });
+  const x = loop(u, 9.1, 3.2);
+  vulns.forEach((it, i) => {
+    const fixed = x < 0 ? 0 : seg(x, 0.2 + i * 0.24, 0.42 + i * 0.24);
+    it.m.material.color.copy(mix(C.bad, C.accent, fixed));
+    it.m.position.y += (x < 0 ? 0 : bump(x, 0.2 + i * 0.24, 0.3)) * 0.3;
+  });
+  if (x >= 0) pulse(agent, Math.max(bump(w, 0.4, 0.4), 0.5 * Math.abs(Math.sin(x * 6.5)) * (x < 2.2 ? 1 : 0)), C.accent, 0.08);
 };
 
 // ================================================================ 2. Models
-const TB = 6.2;
-const B = Bench(0, -1, TB);
+const TB = 25.2;
+const B = Bench(0.5, -1, TB);
 const ZH = -1.7, ZE = 1.95;
 const P = { enter: [-5.8, 0], fast: [-3.6, 0], fork: [-2.3, 0], easyA: [-2.3, ZE], easyB: [4.7, ZE],
   hardA: [-2.3, ZH], fin: [0.3, ZH], prm: [2.9, ZH], hardB: [4.7, ZH], tray: [4.7, 0] };
@@ -245,8 +330,8 @@ B.update = (v, G) => {
 };
 
 // ================================================================ 3. Serving: npc-mom-router and polyrt
-const TC = 22.8;
-const Cb = Bench(1, -1, TC);
+const TC = TB + 16.6;
+const Cb = Bench(1.5, -1, TC);
 const crate = box(Cb, [0.95, 0.8, 0.95], [-3.6, 0.4, 0], 0.5, REST, 0.08);
 const small = stack(Cb, [-0.9, -1.7], 1, 1, 1, 0.9, 0);
 const big = stack(Cb, [-0.9, 1.7], 2, 2, 8, 1.0, 0.04);
@@ -291,8 +376,8 @@ Cb.update = (u, G) => {
 };
 
 // ================================================================ 4. Memory: engram and reasoning-bank
-const TD = 32.8;
-const D = Bench(1, 1, TD);
+const TD = TC + 10;
+const D = Bench(1.5, 1, TD);
 const NODES = [[1.6, -1.6, 0.7], [2.9, -2.0, 1.2], [4.4, -1.5, 0.8], [5.0, 0.0, 1.3], [3.4, -0.4, 0.9], [2.0, 0.3, 1.4], [3.2, 1.2, 0.7], [4.6, 1.3, 1.0]];
 const EDGES = [[0, 1], [1, 2], [2, 3], [1, 4], [4, 5], [4, 3], [4, 6], [6, 7], [3, 7], [0, 5]];
 const nodeGeo = new THREE.SphereGeometry(0.16, 20, 16);
@@ -343,8 +428,8 @@ D.update = (u, G) => {
 };
 
 // ================================================================ 5. Agents: forge, cogito, bottensor-fleet
-const TE = 43.6;
-const E = Bench(0, 1, TE);
+const TE = TD + 10.8;
+const E = Bench(0.5, 1, TE);
 const forgeBot = bot(E, [3.9, -0.4], 0.5, 0.8);
 const cards = [0, 1, 2].map(i => { const m = mesh(new RoundedBoxGeometry(0.5, 0.035, 0.66, 2, 0.015), mat(C.paper)); return item(E, m, [5.25, 0.03 + i * 0.045, 1.0], 0.8 + i * 0.07); });
 label(E, 'forge', [3.9, 1.3, -0.4], 0.9);
@@ -391,8 +476,8 @@ E.update = (u, G) => {
 };
 
 // ================================================================ 6. attest-ledger
-const TF = 53.9;
-const F = Bench(-1, 1, TF);
+const TF = TE + 10.3, FIN = TF + 6.5;   // FIN: the camera pulls back
+const F = Bench(-0.5, 1, TF);
 path(F, [[5.9, 0], [-5.9, 0]], 1.15);
 const gate = [[0.6, U / 2, -0.62], [0.6, U / 2 + STEP, -0.62], [0.6, U / 2, 0.62], [0.6, U / 2 + STEP, 0.62],
   [0.6, U / 2 + 2 * STEP, -0.62], [0.6, U / 2 + 2 * STEP, 0], [0.6, U / 2 + 2 * STEP, 0.62]].map((p, i) => cube(F, p, 1.05 + i * 0.06));
@@ -431,7 +516,7 @@ F.update = (u, G) => {
   });
 };
 
-const BENCHES = [A, B, Cb, D, E, F];
+const BENCHES = [L1, L2, B, Cb, D, E, F];
 
 // ---------------------------------------------------------------- builder
 function builder() {
@@ -449,13 +534,17 @@ const seedCube = mesh(cubeGeo, mat(C.cube)); scene.add(seedCube);
 
 // Walks: [start, end, from, to, hops] in world coordinates.
 const WALK = [
-  [0.5, 1.4, A.at(-5.2, 2.5), A.at(-2.0, 2.4), 3],
-  [5.2, TB + 0.5, A.at(-2.0, 2.4), B.at(-5.1, 1.1), 7],
+  [0.5, 1.4, L1.at(-5.2, -0.4), L1.at(-2.4, -0.6), 3],
+  [4.2, 4.9, L1.at(-2.4, -0.6), L1.at(-1.9, 2.7), 3],
+  [7.6, 8.3, L1.at(-1.9, 2.7), L1.at(0.3, 2.3), 3],
+  [11.2, TL2, L1.at(0.3, 2.3), L2.at(-3.3, 2.5), 7],
+  [TL2 + 4.5, TL2 + 5.1, L2.at(-3.3, 2.5), L2.at(0.3, 2.8), 4],
+  [TL2 + 11.6, TB + 0.5, L2.at(0.3, 2.8), B.at(-5.1, 1.1), 6],
   [TB + 0.5, TB + 1.45, B.at(-5.1, 1.1), B.at(-3.6, 1.0), 3],
   [TB + 2.3, TB + 3.35, B.at(-3.6, 1.0), B.at(0.3, -0.25), 5],
   [TB + 5.05, TB + 5.75, B.at(0.3, -0.25), B.at(2.9, -0.3), 3],
   [TB + 6.7, TB + 7.55, B.at(2.9, -0.3), B.at(1.1, 0.85), 3],
-  [21.5, TC, B.at(1.1, 0.85), Cb.at(-5.2, 2.5), 6],
+  [TB + 15.3, TC, B.at(1.1, 0.85), Cb.at(-5.2, 2.5), 6],
   [TC + 4.6, TC + 5.4, Cb.at(-5.2, 2.5), Cb.at(1.4, 2.7), 5],
   [TC + 8.6, TD, Cb.at(1.4, 2.7), D.at(3.4, -2.3), 7],
   [TD + 0.1, TD + 0.9, D.at(3.4, -2.3), D.at(3.4, 2.6), 3],
@@ -468,14 +557,16 @@ const WALK = [
 ];
 // Seeds: [picked up, set down from, set down by, bench, where on the bench]
 const SEEDS = [
-  [0.1, 1.4, 1.75, A, [-1.6, 0.3, 0.5]], [5.2, TB + 1.45, TB + 1.85, B, [-3.6, 0.3, 0]],
-  [21.5, TC + 0.1, TC + 0.45, Cb, [-3.6, 0.3, 0]], [TC + 4.5, TC + 5.4, TC + 5.75, Cb, [1.3, 0.3, 0]],
+  [0.1, 1.4, 1.75, L1, [-2.4, 0.3, -2.2]], [4.1, 4.9, 5.25, L1, [-3.6, 0.3, 0.9]], [7.5, 8.3, 8.65, L1, [3.2, 0.3, 1.3]],
+  [11.2, TL2 + 0.1, TL2 + 0.45, L2, [-3.3, 0.3, -0.7]], [TL2 + 4.4, TL2 + 5.1, TL2 + 5.45, L2, [2.3, 0.3, -0.9]],
+  [TL2 + 11.6, TB + 1.45, TB + 1.85, B, [-3.6, 0.3, 0]],
+  [TB + 15.3, TC + 0.1, TC + 0.45, Cb, [-3.6, 0.3, 0]], [TC + 4.5, TC + 5.4, TC + 5.75, Cb, [1.3, 0.3, 0]],
   [TC + 8.6, TD + 0.9, TD + 1.25, D, [3.3, 0.3, -0.2]], [TD + 4.5, TD + 5.5, TD + 5.85, D, [-3.4, 0.3, -1.0]],
   [TD + 9.6, TE + 0.1, TE + 0.45, E, [3.9, 0.3, -0.4]], [TE + 2.9, TE + 3.6, TE + 3.95, E, [0, 0.3, -0.5]],
   [TE + 5.5, TE + 6.2, TE + 6.55, E, [-3.6, 0.3, 0]], [TE + 9.0, TF + 0.7, TF + 1.05, F, [0.6, 0.3, 0]],
 ];
-const JUMPS = [...SEEDS.map(s => [s[2], s[2] + 0.38]), [TB + 3.35, TB + 3.75], [TB + 5.75, TB + 6.1], [TB + 14.75, TB + 15.1],
-  [TF + 5.6, TF + 5.95], [61.0, 61.35], [61.35, 61.7]];
+const JUMPS = [...SEEDS.map(s => [s[2], s[2] + 0.38]), [TL2 + 8.3, TL2 + 8.65], [TB + 3.35, TB + 3.75], [TB + 5.75, TB + 6.1],
+  [TB + 14.75, TB + 15.1], [TF + 5.6, TF + 5.95], [FIN + 0.6, FIN + 0.95], [FIN + 0.95, FIN + 1.3]];
 
 function walkState(t) {
   let pos = WALK[0][2], yaw = 1.2, y = 0, squash = 1, moving = false;
@@ -500,21 +591,28 @@ function walkState(t) {
 }
 
 // ---------------------------------------------------------------- camera
-const AZ = THREE.MathUtils.degToRad(24), EL = THREE.MathUtils.degToRad(33), NEAR = 9.5, WIDE = 30;
-const SHOTS = [[0, A, NEAR], [5.4, A, NEAR], [6.9, B, NEAR], [21.5, B, NEAR], [22.9, Cb, NEAR], [31.5, Cb, NEAR], [32.9, D, NEAR],
-  [42.4, D, NEAR], [43.7, E, NEAR], [52.6, E, NEAR], [54.0, F, NEAR], [60.4, F, NEAR], [62.8, null, WIDE], [DURATION, null, WIDE]];
+const AZ = THREE.MathUtils.degToRad(24), EL = THREE.MathUtils.degToRad(33), NEAR = 9.5, WIDE = 39;
+const SHOTS = [[0, L1, NEAR], [11.3, L1, NEAR], [12.8, L2, NEAR], [TL2 + 11.7, L2, NEAR], [TB + 0.7, B, NEAR], [TB + 15.3, B, NEAR],
+  [TC + 0.1, Cb, NEAR], [TC + 8.7, Cb, NEAR], [TD + 0.1, D, NEAR], [TD + 9.6, D, NEAR], [TE + 0.1, E, NEAR], [TE + 9.0, E, NEAR],
+  [TF + 0.1, F, NEAR], [FIN, F, NEAR], [FIN + 2.4, null, WIDE], [DURATION, null, WIDE]];
 function shot(t) {
   let i = 0; while (i < SHOTS.length - 2 && t >= SHOTS[i + 1][0]) i++;
   const [ta, a, sa] = SHOTS[i], [tb, b, sb] = SHOTS[i + 1], p = inOut(seg(t, ta, tb));
-  const pa = a ? [a.ox - 1.1, a.oz + 0.2] : [1.9, 2.2], pb = b ? [b.ox - 1.1, b.oz + 0.2] : [1.9, 2.2];
+  const pa = a ? [a.ox - 1.1, a.oz + 0.2] : [1.5, 2.2], pb = b ? [b.ox - 1.1, b.oz + 0.2] : [1.5, 2.2];
   return { x: lerp(pa[0], pb[0], p), z: lerp(pa[1], pb[1], p), S: lerp(sa, sb, p) };
 }
 
 // ---------------------------------------------------------------- words
-const ITEMS = [['Day job: services at scale', 5.2], ['Small models, trained and measured', 21.4], ['Serving them', 31.8],
-  ['Memory for agents', 42.4], ['Agent frameworks', 52.6], ['Checking what the agent claims', 60.2]];
+const ITEMS = [["Lowe's: the Wallet platform", 11.2], ["Lowe's: migrations and the AI layer", TL2 + 11.6],
+  ['Small models, trained and measured', TB + 15.2], ['Serving them', TC + 9.0], ['Memory for agents', TD + 9.6],
+  ['Agent frameworks', TE + 9.0], ['Checking what the agent claims', TF + 6.3]];
 const CAPTIONS = [
-  [0.4, 5.3, 'Day job: Java and Python services, over a million events a day.'],
+  [0.4, 4.1, "At Lowe's I work on the Wallet platform. Its Java services handle over a million Kafka events a day."],
+  [4.2, 7.5, 'I shipped Pay by Bank, a new way to pay at checkout. About 45,000 customers use it.'],
+  [7.6, 11.2, 'I co-led a credit card platform migration: about 450,000 cards at 99.98% accuracy.'],
+  [TL2 + 0.2, TL2 + 4.4, 'I led the move of 12+ services from Couchbase to Postgres. One hot read path went from 200 ms to 50.'],
+  [TL2 + 4.5, TL2 + 8.25, "Then the team's AI layer: an MCP agent platform that takes a spec to code, tests and a pull request."],
+  [TL2 + 8.3, TL2 + 11.6, 'And agent skills that fixed more than a hundred security vulnerabilities.'],
   [TB + 0.5, TB + 2.25, 'After hours, small models. A router first: NPC Fast, 1.7 billion parameters.'],
   [TB + 2.3, TB + 5.0, 'A specialist: NPC Fin, 32 billion. One cube is a billion parameters.'],
   [TB + 5.05, TB + 6.65, 'And a judge: Fin-PRM, 7 billion.'],
@@ -529,7 +627,7 @@ const CAPTIONS = [
   [TE + 3.0, TE + 5.5, 'cogito: reasoning as visible steps. Think, act, observe.'],
   [TE + 5.6, TE + 9.0, 'bottensor-fleet: several agents wired together as a graph.'],
   [TF + 0.2, TF + 6.4, 'attest-ledger: the agent says tests pass. Did a real run back that?'],
-  [61.4, END, 'All of it is open: github.com/ramankrishna'],
+  [FIN + 1.0, END, 'The models and tools are open: github.com/ramankrishna'],
 ];
 const list = document.getElementById('list'), cap = document.getElementById('caption');
 list.innerHTML = ITEMS.map(([text], i) => `<div><i></i><b>0${i + 1}</b><span>${text}</span></div>`).join('');
@@ -572,7 +670,7 @@ function frame(t) {
     } else seedCube.visible = false;
   }
   if (!w.moving && lastSeed) yaw = Math.atan2(lastSeed[0] - w.pos[0], lastSeed[1] - w.pos[1]);
-  if (t > 60.9) yaw = 0.42;
+  if (t > FIN + 0.5) yaw = 0.42;
   ram.rotation.y = yaw;
   const side = 1 / Math.sqrt(w.squash);
   ram.scale.set(K * pop * side, K * pop * w.squash, K * pop * side);
@@ -580,7 +678,7 @@ function frame(t) {
   for (const h of ram.userData.hands) h.position.set(h.userData.s * lerp(0.27, 0.2, armsUp), lerp(0.36, 1.0, armsUp), lerp(0.02, 0.06, armsUp));
 
   // Words.
-  list.style.opacity = seg(t, 0.1, 0.5) * (1 - seg(t, 60.6, 61.2));
+  list.style.opacity = seg(t, 0.1, 0.5) * (1 - seg(t, FIN + 0.2, FIN + 0.8));
   rows.forEach((row, i) => {
     const done = seg(t, ITEMS[i][1], ITEMS[i][1] + 0.2) > 0.5;
     row.style.color = done ? C.fg : C.muted;
@@ -598,7 +696,7 @@ function frame(t) {
 
 window.renderAt = frame;
 window.DURATION = DURATION;
-window.CHAPTERS = { dayjob: [0, 5.4], models: [TB + 0.5, 21.5], serving: [TC, 31.8], memory: [TD, 42.4], agents: [TE, 52.6], attest: [TF, 60.4] };
+window.CHAPTERS = { lowes: [0, TL2 + 11.6], models: [TB + 0.5, TB + 15.3], tools: [TC, FIN] };
 if (q.has('play')) { const t0 = performance.now(), from = parseFloat(q.get('t') || '0'); const run = () => { frame(from + (performance.now() - t0) / 1000); requestAnimationFrame(run); }; run(); }
 else frame(parseFloat(q.get('t') || '0'));
 window.ready = true;

@@ -3,12 +3,24 @@
   <img src="./assets/hero-light.svg" width="100%" alt="Rama Krishna Bachu. Java and Python distributed systems. AI agents and MCP servers. Small language models, for fun. The models, drawn to scale by parameter count: Fast 1.7B, Fin-PRM 7B, Agentic v3 7B, Fin 32B.">
 </picture>
 
-Software engineer at Lowe's on the Wallet platform: payments, gift and credit cards, and checkout, on Java services that consume over a million Kafka events a day. I also built the team's AI layer, an MCP-based agent platform. On my own time I train small language models in PyTorch and publish the weights, the evals and the null results. That side work is my own and not my employer's.
+Software engineer at Lowe's, on the Wallet platform: payments, gift and credit cards, and checkout. On my own time I train small language models in PyTorch and build agent tooling, and I publish the weights, the evals and the null results. That side work is my own and not my employer's.
+
+## At Lowe's
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-dayjob-dark.gif">
-  <img src="./assets/journey-dayjob-light.gif" width="100%" alt="Animation. A small figure sets up two Java services on a workbench and a stream of events flows through them, over a million a day.">
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-lowes-dark.gif">
+  <img src="./assets/journey-lowes-light.gif" width="100%" alt="Animation. A small figure builds the Lowe's work on two workbenches: Java services streaming over a million Kafka events a day, Pay by Bank at checkout used by about 45,000 customers, a card migration of about 450K cards at 99.98% accuracy, 12 services hopping from Couchbase to Postgres, an MCP agent platform turning specs into pull requests, and agent skills fixing security findings.">
 </picture>
+
+| Work | Result |
+|---|---|
+| Event-driven Java services on the Wallet platform | 1M+ Kafka events a day |
+| ACH Pay by Bank, a new payment method at checkout | Live for about 45,000 customers |
+| Credit card platform migration, co-led | About 450K cards at 99.98% accuracy |
+| Couchbase to Postgres migration, led | 12+ microservices |
+| Hot read path API latency | 200 ms down to 50 ms |
+| MCP agent platform: spec to code, tests and pull request | 100+ pull requests raised |
+| Agent skills for security fixes | 100+ vulnerabilities resolved |
 
 ## Models
 

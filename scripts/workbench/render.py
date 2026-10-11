@@ -6,14 +6,14 @@ and cuts the chapter GIFs the README plays.
 
     cd scripts/workbench && npm install three@0.169.0
     pip install playwright pillow && playwright install chromium
-    python3 render.py frames light out/light 24 1.5      # all 1584 frames
-    FIRST=161 LAST=516 python3 render.py frames light out/light 24 1.5   # or just a range
+    python3 render.py frames light out/light 24 1.25     # all 2040 frames
+    FIRST=617 LAST=972 python3 render.py frames light out/light 24 1.25  # or just a range
 
     ffmpeg -framerate 24 -i out/light/f%04d.png -c:v libx264 -pix_fmt yuv420p -crf 18 journey-light.mp4
 
-Chapter GIFs (start frame, frame count, width): day job 0/130/800, models 161/355/800, tools 547/903/760.
+Chapter GIFs (start frame, seconds, width): Lowe's 0/24.2/800, models 617/14.8/800, tools 1003/42.4/760.
 
-    ffmpeg -framerate 24 -start_number 161 -i out/light/f%04d.png -frames:v 355 -vf "fps=12,scale=800:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=none:diff_mode=rectangle" -loop 0 ../../assets/journey-models-light.gif
+    ffmpeg -framerate 24 -start_number 617 -t 14.8 -i out/light/f%04d.png -vf "fps=12,scale=800:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96:stats_mode=diff[p];[b][p]paletteuse=dither=none:diff_mode=rectangle" -loop 0 ../../assets/journey-models-light.gif
 
 usage: render.py stills <theme> <out.png> t1 t2 ...
        render.py frames <theme> <dir> <fps> [scale]
