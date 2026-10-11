@@ -1,0 +1,21 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Workbench</title>
+<style>
+  @font-face { font-family: "Bricolage"; font-weight: 500; src: url("../fonts/BricolageGrotesque-Text-Medium.ttf"); }
+  @font-face { font-family: "Bricolage"; font-weight: 700; src: url("../fonts/BricolageGrotesque-Display-Bold.ttf"); }
+  html, body { margin: 0; height: 100%; overflow: hidden; }
+  canvas { display: block; }
+  #list { position: absolute; left: 44px; top: 34px; font: 500 16px/1 "Bricolage", sans-serif; }
+  #list div { display: flex; align-items: center; gap: 12px; height: 27px; transition: none; }
+  #list i { width: 10px; height: 10px; border-radius: 2px; box-sizing: border-box; border: 1.5px solid; flex: none; }
+  #list b { font-weight: 500; font-variant-numeric: tabular-nums; opacity: .7; }
+  #caption { position: absolute; left: 34px; bottom: 30px; max-width: 1210px; padding: 9px 14px 10px; border-radius: 9px; font: 500 22px/1.25 "Bricolage", sans-serif; white-space: nowrap; }
+  #caption:empty { display: none; }
+</style>
+<div id="list"></div>
+<div id="caption"></div>
+<script type="importmap">
+{ "imports": { "three": "./node_modules/three/build/three.module.js", "three/addons/": "./node_modules/three/examples/jsm/" } }
+</script>
+<script type="module" src="journey.js"></script>

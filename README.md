@@ -1,89 +1,57 @@
-<p align="center">
-  <img src="./assets/hero.svg" alt="Rama Krishna Bachu — Training small specialized language models end-to-end" width="100%" />
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/hero-dark.svg">
+  <img src="./assets/hero-light.svg" width="100%" alt="Rama Krishna Bachu. Java and Python distributed systems. AI agents and MCP servers. Small language models, for fun. The models, drawn to scale by parameter count: Fast 1.7B, Fin-PRM 7B, Agentic v3 7B, Fin 32B.">
+</picture>
 
-<p align="center"><em>Software Engineer at Lowe's · MS CS, University of New Haven · Independent SLM research as <a href="https://bottensor.xyz">Bottensor</a></em></p>
+Software engineer at Lowe's, on the Wallet platform: payments, gift and credit cards, and checkout. On my own time I train small language models in PyTorch and build agent tooling, and I publish the weights, the evals and the null results. That side work is my own and not my employer's.
 
-## Currently
+## At Lowe's
 
-<table>
-  <tr>
-    <td width="180"><b>Bottensor</b></td>
-    <td>Open-source SLM research line. Training, serving, routing, and multi-agent orchestration as one stack. <a href="https://bottensor.xyz">bottensor.xyz</a></td>
-  </tr>
-  <tr>
-    <td width="180"><b>polyrt</b></td>
-    <td>Unified LLM runtime across MLX, Anthropic, and OpenAI. PyPI, v0.1.0.</td>
-  </tr>
-</table>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-lowes-dark.gif">
+  <img src="./assets/journey-lowes-light.gif" width="100%" alt="Animation. A small figure builds the Lowe's work on two workbenches: Java services streaming over a million Kafka events a day, Pay by Bank at checkout used by about 45,000 customers, a card migration of about 450K cards at 99.98% accuracy, 12 services hopping from Couchbase to Postgres, an MCP agent platform turning specs into pull requests, and agent skills fixing security findings.">
+</picture>
 
-## Models on HuggingFace
+| Work | Result |
+|---|---|
+| Event-driven Java services on the Wallet platform | 1M+ Kafka events a day |
+| ACH Pay by Bank, a new payment method at checkout | Live for about 45,000 customers |
+| Credit card platform migration, co-led | About 450K cards at 99.98% accuracy |
+| Couchbase to Postgres migration, led | 12+ microservices |
+| Hot read path API latency | 200 ms down to 50 ms |
+| MCP agent platform: spec to code, tests and pull request | 100+ pull requests raised |
+| Agent skills for security fixes | 100+ vulnerabilities resolved |
 
-Live download stats from the HuggingFace API, refreshed weekly.
+## Models
 
-<p align="center">
-  <a href="https://huggingface.co/ramankrishna10/npc-fast-1.7b">
-    <img src="./assets/hf-cards/npc-fast-1.7b.svg" alt="NPC Fast 1.7B" />
-  </a>
-  <a href="https://huggingface.co/ramankrishna10/npc-agentic-7b-v3">
-    <img src="./assets/hf-cards/npc-agentic-7b-v3.svg" alt="NPC Agentic 7B v3" />
-  </a>
-</p>
-<p align="center">
-  <a href="https://huggingface.co/ramankrishna10/npc-fin-prm-7b">
-    <img src="./assets/hf-cards/npc-fin-prm-7b.svg" alt="Fin-PRM 7B" />
-  </a>
-  <a href="https://huggingface.co/ramankrishna10/npc-fin-32b-sft">
-    <img src="./assets/hf-cards/npc-fin-32b-sft.svg" alt="NPC Fin 32B" />
-  </a>
-</p>
+| Model | What it is | Result |
+|---|---|---|
+| [NPC Fast 1.7B](https://huggingface.co/ramankrishna10/npc-fast-1.7b) | Request router on SmolLM2-1.7B, context extended to 16K | 98.3% routing accuracy out of distribution ([paper](https://doi.org/10.5281/zenodo.19771040)) |
+| [Fin-PRM 7B](https://huggingface.co/ramankrishna10/npc-fin-prm-7b) | Process reward model on Qwen2.5-7B, scoring four dimensions | Spearman 0.92, F1 0.84 ([paper](https://doi.org/10.5281/zenodo.19800784)) |
+| [NPC Agentic 7B v3](https://huggingface.co/ramankrishna10/npc-agentic-7b-v3) | Tool-use model on Qwen2.5-7B with its own [benchmark harness](https://github.com/ramankrishna/bench-npc-agentic-v3) | BFCL v4, IFEval and AgentBench under one serving setup ([paper](https://doi.org/10.5281/zenodo.19954103)) |
+| [NPC Fin 32B](https://huggingface.co/ramankrishna10/npc-fin-32b-sft) | Finance model on Qwen2.5-32B, trained on 12 H100s | CryptoQA 93.6% ([paper](https://doi.org/10.5281/zenodo.19802598)) |
 
-<p align="center"><sub>Profile on <a href="https://huggingface.co/ramankrishna10">huggingface.co/ramankrishna10</a></sub></p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-models-dark.gif">
+  <img src="./assets/journey-models-light.gif" width="100%" alt="Animation. The figure builds three models as stacks of cubes, one cube per billion parameters: NPC Fast 1.7B, NPC Fin 32B and Fin-PRM 7B. An easy request is answered by the router. A hard one goes to NPC Fin and Fin-PRM scores each step. The results appear: 98.3% routing accuracy, 93.6% CryptoQA, Spearman 0.92.">
+</picture>
 
-## Published research
+One cube is a billion parameters. NPC Fast reads each request and answers the easy ones itself. Hard ones are escalated to NPC Fin, and Fin-PRM scores each step of the reasoning.
 
-| Date | Title | Summary | Links |
-|------|-------|---------|-------|
-| 2026-04 | **NPC Fast 1.7B** | SmolLM2-1.7B-Instruct, full-weight CPT to 16K + router LoRA SFT. 98.3% OOD router accuracy, 77.8% IFEval. | [DOI](https://doi.org/10.5281/zenodo.19771040) · [HF](https://huggingface.co/ramankrishna10/npc-fast-1.7b) |
-| 2026-04 | **NPC Fin 32B** | Qwen2.5-32B-Instruct, 12×H100 ZeRO-3, 32K SFT examples. CryptoQA 93.6%, GPTQ 4-bit 19.2GB. | [DOI](https://doi.org/10.5281/zenodo.19802598) · [HF](https://huggingface.co/ramankrishna10/npc-fin-32b-sft) |
-| 2026-04 | **Fin-PRM 7B** | Qwen2.5-7B QLoRA process reward model, 4-dim. Spearman 0.9234, F1 0.8421, ECE 0.21. | [DOI](https://doi.org/10.5281/zenodo.19800784) · [HF](https://huggingface.co/ramankrishna10/npc-fin-prm-7b) |
-| 2026-05 | **NPC Agentic 7B v3** | Qwen2.5-7B QLoRA + benchmark harness. BFCL v4 / IFEval / AgentBench under identical vLLM 0.6.3 GPTQ W4A16 serving. | [DOI](https://doi.org/10.5281/zenodo.19954103) · [HF](https://huggingface.co/ramankrishna10/npc-agentic-7b-v3) · [bench](https://github.com/ramankrishna/bench-npc-agentic-v3) |
+## Tools
 
-<sub>All preprints CC-BY-4.0 · Bottensor Independent Research · ORCID <a href="https://orcid.org/0009-0000-1298-0681">0009-0000-1298-0681</a></sub>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/journey-tools-dark.gif">
+  <img src="./assets/journey-tools-light.gif" width="100%" alt="Animation. The figure walks four more workbenches and builds each package as a working object: npc-mom-router routing requests between two models, polyrt sending one call to Claude, GPT or a local MLX model, engram recalling through a graph of memories, reasoning-bank filing and retrieving lessons with a sign reading no lift, forge loading markdown skills, cogito looping think, act, observe, bottensor-fleet passing work between agents, and attest-ledger marking claims backed, stale or unbacked.">
+</picture>
 
-## Open source
+| Project | What it does |
+|---|---|
+| [attest-ledger](https://github.com/ramankrishna/attest-ledger) | Claude Code mod that checks "all tests pass" against what actually ran |
+| [polyrt](https://github.com/ramankrishna/polyRT) | One call shape for Claude, GPT and local MLX models |
+| [npc-mom-router](https://github.com/ramankrishna/npc-mom-router) | Sends easy requests to small models and hard ones to specialists |
+| [reasoning-bank](https://github.com/ramankrishna/reasoning-bank) | ReasoningBank for agents, with the experiments where it gave no lift |
+| [bottensor-fleet](https://github.com/ramankrishna/bottensor-fleet) | Graph-native multi-agent fleet, local first |
+| [forge](https://github.com/ramankrishna/forge), [engram](https://github.com/ramankrishna/engram), [cogito](https://github.com/ramankrishna/cogito) | Agent framework, graph memory and reasoning strategies in TypeScript |
 
-**Bottensor**
-
-[![bottensor-models](https://img.shields.io/badge/bottensor--models-training_scripts-00dbb8?style=flat-square&labelColor=161b26)](https://github.com/ramankrishna/bottensor-models)
-[![npc-mom-router](https://img.shields.io/pypi/v/npc-mom-router?style=flat-square&color=00dbb8&labelColor=161b26&label=npc-mom-router)](https://pypi.org/project/npc-mom-router/)
-[![bottensor-fleet](https://img.shields.io/pypi/v/bottensor-fleet?style=flat-square&color=00dbb8&labelColor=161b26&label=bottensor-fleet)](https://pypi.org/project/bottensor-fleet/)
-[![bench-npc-agentic-v3](https://img.shields.io/badge/bench--npc--agentic--v3-benchmark-f5c842?style=flat-square&labelColor=161b26)](https://github.com/ramankrishna/bench-npc-agentic-v3)
-
-**@bottensor on npm**
-
-[![cogito](https://img.shields.io/npm/v/@bottensor/cogito?style=flat-square&color=00dbb8&labelColor=161b26&label=%40bottensor%2Fcogito)](https://www.npmjs.com/package/@bottensor/cogito)
-[![engram](https://img.shields.io/npm/v/@bottensor/engram?style=flat-square&color=00dbb8&labelColor=161b26&label=%40bottensor%2Fengram)](https://www.npmjs.com/package/@bottensor/engram)
-[![forge](https://img.shields.io/npm/v/@bottensor/forge?style=flat-square&color=00dbb8&labelColor=161b26&label=%40bottensor%2Fforge)](https://www.npmjs.com/package/@bottensor/forge)
-
-**Standalone**
-
-[![polyRT](https://img.shields.io/pypi/v/polyrt?style=flat-square&color=00dbb8&labelColor=161b26&label=polyrt)](https://pypi.org/project/polyrt/)
-
-## Experience
-
-| Role | Where | What |
-|------|-------|------|
-| Software Engineer | **Lowe's**, Charlotte NC | Event-driven microservices, 1M+ Kafka events/day for promotions and payments. Postgres + Couchbase data sync. Grafana observability. 10M+ digital gift card batch processing. |
-| Software Engineer | **Accenture**, Hyderabad | Data ingestion with Redis / Solr / Kafka — 140% query perf gain across 100M+ requests. AWS S3 + Avro pipelines. Fault-tolerant microservices serving 20M+ users. |
-
-## Connect
-
-<p align="left">
-  <a href="https://huggingface.co/ramankrishna10"><img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=000" /></a>
-  <a href="https://www.linkedin.com/in/ramakrishna-bachu10/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=fff" /></a>
-  <a href="https://bottensor.xyz"><img src="https://img.shields.io/badge/Bottensor-00DBB8?style=for-the-badge&labelColor=161b26" /></a>
-  <a href="https://orcid.org/0009-0000-1298-0681"><img src="https://img.shields.io/badge/ORCID-A6CE39?style=for-the-badge&logo=orcid&logoColor=fff" /></a>
-</p>
-
-<p align="center"><sub><em>Independent research. Affiliations represent personal interests, not employer.</em></sub></p>
+Models are on [Hugging Face](https://huggingface.co/ramankrishna10), papers are under ORCID [0009-0000-1298-0681](https://orcid.org/0009-0000-1298-0681), and I'm on [LinkedIn](https://www.linkedin.com/in/ramakrishna-bachu10/).
